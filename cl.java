@@ -1,18 +1,18 @@
+import java.util.*;
 class Solution {
-    public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
-        int n=nums1.length;
-        int m=nums2.length;
+    public int[] kthSmallestPrimeFraction(int[] arr, int k) {
+        PriorityQueue<pair>pq=new P.Q.<>(new pair(a,b) -> Double Compare(b.val, a.val))
         for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                int s=nums1[i]+nums2[i];
-                if(pq.size()<k)
-                    pq.offer(s,[nums1[i], nums2[i]]);
-                else{
-                    int k=pq.peek();
-                    if(k>s)
-                        pq.poll();
-                    pq.offer(s,[nums1[i], nums2[i]])
+            for(j=n-1;j>i;j--){
+                if(!pq.size==k){
+                      pq.offer();
                 }
+                else if(arr[i/j]<pq.peek().value){
+                    pq.pop();
+                    pq.offer();
+                }
+                else{
+                    break;
                 }
             }
         }
