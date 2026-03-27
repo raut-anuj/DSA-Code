@@ -1,29 +1,52 @@
-public class Solution {
-    public ListNode detectCycle(ListNode head) {
-        if (head == null || head.next == null) {
-            return null;
+import java.util.*;
+
+class Solution {
+
+    int n;
+    List<List<Integer>> result = new ArrayList<>();
+
+    void backtrack(List<Integer> temp, HashMap<Integer, Integer> mp){
+
+        if(temp.size() == n){
+            result.add(new ArrayList<>(temp));
+            return;
         }
 
-        ListNode slow = head;
-        ListNode fast = head;
+        for(Integer num : mp.keySet()){
 
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-            if (slow == fast) {
-                break;
-            }
+            int count = mp.get(num);
+
+            if(count == 0)
+                continue;
+
+            // do something
+            temp.add(num);
+            mp.put(num, count - 1);
+
+            // explore
+            backtrack(temp, mp);
+
+            // undo
+            temp.remove(temp.size()-1);
+            mp.put(num, count);
+        }
+    }
+
+    public List<List<Integer>> permuteUnique(int[] nums) {
+
+        n = nums.length;
+
+        HashMap<Integer,Integer> mp = new HashMap<>();
+
+        // count frequency
+        for(int num : nums){
+            mp.put(num, mp.getOrDefault(num,0) + 1);
         }
 
-        if (fast != slow) {
-            return null;
-        }
+        List<Integer> temp = new ArrayList<>();
 
-        ListNode entry = head;
-        while (entry != slow) {
-            entry = entry.next;
-            slow = slow.next;
-        }
-        return entry;
+        backtrack(temp, mp);
+
+        return result;
     }
 }
