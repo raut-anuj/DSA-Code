@@ -17,7 +17,6 @@ class Solution {
                 res.get(res.size()-1)[1] = Math.max(res.get(res.size()-1)[1], curr[1]);
             }
         }
-
-        return res.toArray(new int[res.size()][]);
+    return res.toArray(new int[res.size()][]);
     }
 }
