@@ -1,16 +1,22 @@
+import java.util.*;
+
 class Solution {
-public:
-    bool canJump(vector<int>& nums) {
-        int maxReachable = 0;
-        int n            = nums.size();
-            
-        for(int i = 0; i<n; i++) {
-            if(i > maxReachable) {
-                return false;
+    public int[][] merge(int[][] arr) {
+
+        Arrays.sort(arr, (a, b) -> Integer.compare(a[0], b[0]));
+
+        List<int[]> res = new ArrayList<>();
+
+        for (int[] curr : arr) {
+
+            if (res.isEmpty() || res.get(res.size()-1)[1] < curr[0]) {
+                res.add(curr);
+            } 
+            else {
+                res.get(res.size()-1)[1] = Math.max(res.get(res.size()-1)[1], curr[1]);
             }
-            maxReachable = max(maxReachable, nums[i]+i);
         }
-        
-        return true;
+
+        return res.toArray(new int[res.size()][]);
     }
-};
+}
