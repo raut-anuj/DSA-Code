@@ -1,22 +1,33 @@
 import java.util.*;
 
-
 class Solution {
-    public int[][] merge(int[][] arr) {
-
-        Arrays.sort(arr, (a, b) -> Integer.compare(a[0], b[0]));
+    public int[][] insert(int[][] intervals, int[] ni) {
 
         List<int[]> res = new ArrayList<>();
+        int i = 0;
+        int n = intervals.length;
 
-        for (int[] curr : arr) {
-
-            if (res.isEmpty() || res.get(res.size()-1)[1] < curr[0]) {
-                res.add(curr);
-            } 
-            else {
-                res.get(res.size()-1)[1] = Math.max(res.get(res.size()-1)[1], curr[1]);
-            }
+        // 1. add all before overlap
+        while (i < n && intervals[i][1] < ni[0]) {
+            res.add(intervals[i]);
+            i++;
         }
-    return res.toArray(new int[res.size()][]);
+
+        // 2. merge overlap
+        while (i < n && intervals[i][0] <= ni[1]) {
+            ni[0] = Math.min(ni[0], intervals[i][0]);
+            ni[1] = Math.max(ni[1], intervals[i][1]);
+            i++;
+        }
+
+        res.add(ni);
+
+        // 3. add remaining
+        while (i < n) {
+            res.add(intervals[i]);
+            i++;
+        }
+
+        return res.toArray(new int[res.size()][]);
     }
 }
