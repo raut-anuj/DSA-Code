@@ -1,33 +1,21 @@
-import java.util.*;
-
 class Solution {
-    public int[][] insert(int[][] intervals, int[] ni) {
+    public int uniquePaths(int m, int n) {
+        int[][] t = new int[m][n];
 
-        List<int[]> res = new ArrayList<>();
-        int i = 0;
-        int n = intervals.length;
+        t[0][0] = 1;  // 🔥 Missing base case
 
-        // 1. add all before overlap
-        while (i < n && intervals[i][1] < ni[0]) {
-            res.add(intervals[i]);
-            i++;
+        for (int j = 1; j < n; j++)
+            t[0][j] = 1;
+
+        for (int i = 1; i < m; i++)
+            t[i][0] = 1;
+
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                t[i][j] = t[i - 1][j] + t[i][j - 1];
+            }
         }
 
-        // 2. merge overlap
-        while (i < n && intervals[i][0] <= ni[1]) {
-            ni[0] = Math.min(ni[0], intervals[i][0]);
-            ni[1] = Math.max(ni[1], intervals[i][1]);
-            i++;
-        }
-\
-.p;    res.add(ni);
-
-        // 3. add remaining
-        while (i < n) {
-            res.add(intervals[i]);
-            i++;
-        }
-   
-        return res.toArray(new int[res.size()][]);
+        return t[m - 1][n - 1];
     }
 }
