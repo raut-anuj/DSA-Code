@@ -2,8 +2,7 @@ class Solution {
     public int uniquePaths(int m, int n) {
         int[][] t = new int[m][n];
 
-        t[0][0] = 1;  // 🔥 Missing base case
-
+        t[0][0] = 1;  
         for (int j = 1; j < n; j++)
             t[0][j] = 1;
 
