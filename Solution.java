@@ -19,8 +19,8 @@ class Solution {
             ni[1] = Math.max(ni[1], intervals[i][1]);
             i++;
         }
-
-        res.add(ni);
+\
+.p;    res.add(ni);
 
         // 3. add remaining
         while (i < n) {
