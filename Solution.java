@@ -14,7 +14,7 @@ class Solution {
                 t[i][j] = t[i - 1][j] + t[i][j - 1];
             }
         }
-
+   
         return t[m - 1][n - 1];
     }
 }
