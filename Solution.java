@@ -21,7 +21,7 @@ class Solution {
             else
                 t[row][0] = t[row - 1][0];
         }
-
+ 
         // Fix 4: Declare i properly
         for (int i = 1; i < m; i++) {
             for (int j = 1; j < n; j++) {
