@@ -33,7 +33,7 @@ class Solution {
                 solve(s, g, i+1, j, k+1) ||
                 solve(s, g, i, j-1, k+1) ||
                 solve(s, g, i, j+1, k+1);
-
+ 
         g[i][j] = temp;  // backtrack
 
         return found;
