@@ -17,7 +17,7 @@ class Solution {
         // Fix 3: First column (corrected indices)
         for (int row = 1; row < m; row++) {
             if (g[row][0] == 1)
-                t[row][0] = 0;
+                t[row][0] = 0; 
             else
                 t[row][0] = t[row - 1][0];
         }
