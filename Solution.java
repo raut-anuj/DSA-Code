@@ -1,7 +1,7 @@
 class Solution {
 
     int m, n;
-
+ 
     public boolean exist(char[][] g, String s) {
 
         m = g.length;
