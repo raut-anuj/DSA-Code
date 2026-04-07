@@ -1,41 +1,36 @@
-class Solution {
-
-    int m, n;
- 
-    public boolean exist(char[][] g, String s) {
-
-        m = g.length;
-        n = g[0].length;
-
-        for(int i = 0; i < m; i++){
-            for(int j = 0; j < n; j++){
-                if(g[i][j] == s.charAt(0) && solve(s, g, i, j, 0)){
-                    return true;
-                }
-            }
-        }
-        return false;
+public class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> result = new ArrayList<>();
+        backtrack(s, 0, new ArrayList<>(), result);
+        return result;
     }
 
-    boolean solve(String s, char[][] g, int i, int j, int k){
+    private void backtrack(String s, int start, List<String> path, List<List<String>> result) {
+        // If we've reached the end of the string, add the current partition to the result list
+        if (start == s.length()) {
+            result.add(new ArrayList<>(path));
+            return;
+        }
+        // Explore all possible partitions
+        for (int end = start + 1; end <= s.length(); end++) {
+            // If the current substring is a palindrome, add it to the current path
+            if (isPalindrome(s, start, end - 1)) {
+                path.add(s.substring(start, end));
+                // Recur to find other partitions
+                backtrack(s, end, path, result);
+                // Backtrack to explore other partitions
+                path.remove(path.size() - 1);
+            }
+        }
+    }
 
-        if(k == s.length())
-            return true;
-
-        if(i < 0 || j < 0 || i >= m || j >= n || g[i][j] != s.charAt(k))
-            return false;
-
-        char temp = g[i][j];
-        g[i][j] = '0';   // mark visited
-
-        boolean found =
-                solve(s, g, i-1, j, k+1) ||
-                solve(s, g, i+1, j, k+1) ||
-                solve(s, g, i, j-1, k+1) ||
-                solve(s, g, i, j+1, k+1);
- 
-        g[i][j] = temp;  // backtrack
-
-        return found;
+    private boolean isPalindrome(String s, int left, int right) {
+        // Check if the substring s[left:right+1] is a palindrome
+        while (left < right) {
+            if (s.charAt(left++) != s.charAt(right--)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
