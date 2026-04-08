@@ -21,7 +21,7 @@ public class Solution {
                 // Backtrack to explore other partitions
                 path.remove(path.size() - 1);
             }
-        }
+        }    
     }
 
     private boolean isPalindrome(String s, int left, int right) {
