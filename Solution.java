@@ -25,7 +25,7 @@ class Solution {
                 total = 0;
                 result = i + 1;
              }
-        }
+        }  
 
         return result;
     }
