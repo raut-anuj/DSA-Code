@@ -1,32 +1,34 @@
-import java.util.*;
-  
 class Solution {
-    public int canCompleteCircuit(int[] gas, int[] cost) {
-        int n = gas.length;
+    public int candy(int[] ratings) {
+        int n = ratings.length;
+        int candy = n; //Each person given one candy
 
-        int sumGas = 0;
-        int sumCost = 0;
+        int i = 1;
+        while (i < n) {
 
-        for (int i = 0; i < n; i++) {
-            sumGas += gas[i];
-            sumCost += cost[i];
+            if (ratings[i] == ratings[i - 1]) {
+                i++;
+                continue;
+            }
+
+            //For increasing slope
+            int peak = 0;
+            while (i < n && ratings[i] > ratings[i - 1]) {
+                peak++;
+                candy += peak;
+                i++;
+            }
+
+            //For decreasing slope
+            int valley = 0;
+            while (i < n && ratings[i] < ratings[i - 1]) {
+                valley++;
+                candy += valley;
+                i++;
+            }
+            candy -= Math.min(peak, valley);
         }
 
-        if (sumGas < sumCost)
-            return -1;
-
-        int total = 0;
-        int result = 0;
-
-        for (int i = 0; i < n; i++) {
-            total += gas[i] - cost[i];
-
-            if (total < 0) {
-                total = 0;
-                result = i + 1;
-             }
-        }  
-
-        return result;
+        return candy;
     }
 }
