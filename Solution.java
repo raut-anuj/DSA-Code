@@ -24,7 +24,7 @@ class Solution {
             if (total < 0) {
                 total = 0;
                 result = i + 1;
-            }
+             }
         }
 
         return result;
