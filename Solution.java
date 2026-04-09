@@ -23,7 +23,7 @@ class Solution {
             int valley = 0;
             while (i < n && ratings[i] < ratings[i - 1]) {
                 valley++;
-                candy += valley;
+                candy += valley; 
                 i++;
             }
             candy -= Math.min(peak, valley);
