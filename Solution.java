@@ -23,7 +23,7 @@ public class Solution {
         while (entry != slow) {
             entry = entry.next;
             slow = slow.next;
-        }
+        }  
         return entry;
-    }
-}
+    }  
+}  
