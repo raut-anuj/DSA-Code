@@ -21,7 +21,7 @@ public class Solution {
 
         ListNode entry = head;
         while (entry != slow) {
-            entry = entry.next;
+            entry = entry.next;   
             slow = slow.next;
         }  
         return entry;
