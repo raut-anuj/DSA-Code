@@ -26,7 +26,6 @@ class Solution {
                 }
             }
         }
-
         return t[0][0];
     }
 }
