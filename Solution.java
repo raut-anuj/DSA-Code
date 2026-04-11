@@ -1,29 +1,32 @@
-public class Solution {
-    public ListNode detectCycle(ListNode head) {
-        if (head == null || head.next == null) {
-            return null;
-        }
+class Solution {
+    public int calculateMinimumHP(int[][] d) {
+        int m = d.length;
+        int n = d[0].length;
 
-        ListNode slow = head;
-        ListNode fast = head;
+        int[][] t = new int[m][n];
 
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-            if (slow == fast) {
-                break;
+        for (int i = m - 1; i >= 0; i--) {
+            for (int j = n - 1; j >= 0; j--) {
+
+                if (i == m - 1 && j == n - 1) {
+                    if (d[i][j] >= 0)
+                        t[i][j] = 1;
+                    else
+                        t[i][j] = Math.abs(d[i][j]) + 1;
+                }
+                else {
+                    int right = (j + 1 >= n) ? Integer.MAX_VALUE : t[i][j + 1];
+                    int down  = (i + 1 >= m) ? Integer.MAX_VALUE : t[i + 1][j];
+
+                    int minNext = Math.min(right, down);
+
+                    int result = minNext - d[i][j];
+
+                    t[i][j] = (result <= 0) ? 1 : result;
+                }
             }
         }
 
-        if (fast != slow) {
-            return null;
-        }
-
-        ListNode entry = head;
-        while (entry != slow) {
-            entry = entry.next;   
-            slow = slow.next;
-        }  
-        return entry;
-    }  
-}  
+        return t[0][0];
+    }
+}
