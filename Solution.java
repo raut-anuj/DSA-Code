@@ -2,7 +2,7 @@ class Solution {
     public int calculateMinimumHP(int[][] d) {
         int m = d.length;
         int n = d[0].length;
-
+ 
         int[][] t = new int[m][n];
  
         for (int i = m - 1; i >= 0; i--) {
