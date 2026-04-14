@@ -1,7 +1,7 @@
 class Solution {
  
     public int change(int t, int[] c) {
-        int t[];
+        int t[];   
         return solve(0, 0, t, c);
     }
 
