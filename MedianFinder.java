@@ -1,13 +1,12 @@
 class Solution {
-    public int maxProfit(int[] prices) {
-        int min = Integer.MAX_VALUE;
-        int profit = 0;
-    
-        for (int price : prices) {
-            min = Math.min(min, price);
-            profit = Math.max(profit, price - min);
-        }    
- 
-        return profit;
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null || root == p || root == q) return root;
+
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+
+        if (left != null && right != null) return root;
+
+        return (left != null) ? left : right;
     }
 }
