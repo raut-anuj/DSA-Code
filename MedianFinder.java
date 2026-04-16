@@ -6,7 +6,7 @@ class Solution {
         for (int price : prices) {
             min = Math.min(min, price);
             profit = Math.max(profit, price - min);
-        }
+        }    
  
         return profit;
     }
