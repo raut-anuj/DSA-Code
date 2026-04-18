@@ -1,26 +1,15 @@
 class Solution {
-    public List<List<Integer>> levelOrderBottom(TreeNode root) {
-        LinkedList<List<Integer>> ans = new LinkedList<>();
-        if (root == null) return ans;
+    public int maxProfit(int[] prices) {
+        int buy1 = Integer.MIN_VALUE, buy2 = Integer.MIN_VALUE;
+        int sell1 = 0, sell2 = 0;
 
-        Queue<TreeNode> q = new LinkedList<>();
-        q.offer(root);
-
-        while (!q.isEmpty()) {
-            int size = q.size();
-            List<Integer> list = new ArrayList<>();
-
-            for (int i = 0; i < size; i++) {
-                TreeNode node = q.poll();
-                list.add(node.val);
-
-                if (node.left != null) q.offer(node.left);
-                if (node.right != null) q.offer(node.right);
-            }
-
-            ans.addFirst(list); // 🔥 main trick
+        for (int price : prices) {
+            buy1 = Math.max(buy1, -price);
+            sell1 = Math.max(sell1, buy1 + price);
+            buy2 = Math.max(buy2, sell1 - price);
+            sell2 = Math.max(sell2, buy2 + price);
         }
 
-        return ans;
+        return sell2;
     }
 }
