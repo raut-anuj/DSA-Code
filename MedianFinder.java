@@ -1,12 +1,26 @@
 class Solution {
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if (root == null || root == p || root == q) return root;
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        LinkedList<List<Integer>> ans = new LinkedList<>();
+        if (root == null) return ans;
 
-        TreeNode left = lowestCommonAncestor(root.left, p, q);
-        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
 
-        if (left != null && right != null) return root;
+        while (!q.isEmpty()) {
+            int size = q.size();
+            List<Integer> list = new ArrayList<>();
 
-        return (left != null) ? left : right;
-    }      
-} 
+            for (int i = 0; i < size; i++) {
+                TreeNode node = q.poll();
+                list.add(node.val);
+
+                if (node.left != null) q.offer(node.left);
+                if (node.right != null) q.offer(node.right);
+            }
+
+            ans.addFirst(list); // 🔥 main trick
+        }
+
+        return ans;
+    }
+}
