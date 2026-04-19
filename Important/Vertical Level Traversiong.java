@@ -63,15 +63,3 @@ class Solution {
         dfs(root.right,col+1,level+1);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
