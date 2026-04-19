@@ -28,14 +28,9 @@ class Solution {
         for(Map.Entry<Integer,TreeMap<Integer,ArrayList<Integer>>> entry : map.entrySet()){
             TreeMap<Integer,ArrayList<Integer>> levelMap = entry.getValue();
             ArrayList<Integer> list = new ArrayList<>();
-             // [level wise sorting]
-            // -2 [0,1,2]
-            // -1 [0,1,2]
+            
             for(Map.Entry<Integer,ArrayList<Integer>> subEntry : levelMap.entrySet()){
-                ArrayList<Integer> sublist = subEntry.getValue();
-                // -2 0 - []
-                // -2 1 - []
-                // -2 2 - []
+                ArrayList<Integer> sublist = subEntry.getValue();           
                 Collections.sort(sublist); 
                 list.addAll(sublist);
             }
