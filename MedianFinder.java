@@ -1,27 +1,20 @@
 class Solution {
-    public int mincostTickets(int[] d, int[] c) {
+    public int knightDialer(int n) {
         
-        // main body of frame.
-        solve(int i){
-            if(i>0)return 0;
-
-            int take1 = c[0] + solve(i+1);
-
-            //7 days
-            int j=i;
-            int max_d = arr[j] + 7;
-            if( arr[j] < max_d)
-                j++;
-            int take7 = c[1] + solve(j);
-
-            //15 days
-            int j=i;
-            int max_d = arr[j] + 15;
-            if( arr[j] < max_d)
-                j++;
-            int take15 = c[2] + solve(j);
-
-            return Math.min(take1 + take15 + take7);
+        // main body frame.
+        for(int cell =0; cell<=9; cell++){
+            r+ = (solve(n-1, cell))% M;
         }
+    }
+    solve(n, cell);{
+        if(n==0)
+            return 1;
+
+        ans =0;
+        for() //lopp for adjancey'
+        {
+            ans + = solev(n-1, cell)
+        }
+
     }
 }
