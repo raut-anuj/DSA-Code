@@ -1,14 +1,27 @@
 class Solution {
-    public int minCostClimbingStairs(int[] cost) {
+    public int mincostTickets(int[] d, int[] c) {
+        
+        // main body of frame.
+        solve(int i){
+            if(i>0)return 0;
 
-        int prev2 = 0, prev1 = 0;
+            int take1 = c[0] + solve(i+1);
 
-        for (int i = 0; i < cost.length; i++) {
-            int curr = cost[i] + Math.min(prev1, prev2);
-            prev2 = prev1;
-            prev1 = curr;
+            //7 days
+            int j=i;
+            int max_d = arr[j] + 7;
+            if( arr[j] < max_d)
+                j++;
+            int take7 = c[1] + solve(j);
+
+            //15 days
+            int j=i;
+            int max_d = arr[j] + 15;
+            if( arr[j] < max_d)
+                j++;
+            int take15 = c[2] + solve(j);
+
+            return Math.min(take1 + take15 + take7);
         }
-
-        return Math.min(prev1, prev2);
     }
 }
