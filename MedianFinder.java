@@ -5,7 +5,7 @@ class Solution {
 
         long[] dp = new long[high + 1];
         dp[0] = 1;
-
+  
         long ans = 0;
 
         for (int i = 1; i <= high; i++) {
