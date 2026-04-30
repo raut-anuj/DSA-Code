@@ -10,7 +10,7 @@ public class Solution {
             if (arr[ch - 'a'] > 0)
                 return true;
             arr[ch - 'a']++;
-        }
+        }   
 
         for (char ch : s2.toCharArray()) {
             if (arr[ch - 'a'] > 0)
