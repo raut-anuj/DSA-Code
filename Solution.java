@@ -15,7 +15,7 @@ public class Solution {
         for (char ch : s2.toCharArray()) {
             if (arr[ch - 'a'] > 0)
                 return true;
-        }
+        }      
 
         return false;
     }
