@@ -1,44 +1,39 @@
-public class Solution {
-    public int maxLength(List<String> arr) {
-        return solve(0, arr, "", arr.size(), new HashMap<>());
-    }
+class Solution {
+    public int[] longestObstacleCourseAtEachPosition(int[] o) {
+        int n = o.length;
+        int[] res = new int[n];
 
-    private boolean hasCommon(String s1, String s2) {
-        int[] arr = new int[26];
+        List<Integer> lis = new ArrayList<>();
 
-        for (char ch : s1.toCharArray()) {
-            if (arr[ch - 'a'] > 0)
-                return true;
-            arr[ch - 'a']++;
-        }   
+        for (int i = 0; i < n; i++) {
+            int idx = upperBound(lis, o[i]);
 
-        for (char ch : s2.toCharArray()) {
-            if (arr[ch - 'a'] > 0)
-                return true;
-        }      
+            if (idx == lis.size()) {
+                lis.add(o[i]);
+            } else {
+                lis.set(idx, o[i]);
+            }
 
-        return false;
-    }
-
-    private int solve(int idx, List<String> arr, String temp, int n, Map<String, Integer> memo) {
-        if (idx >= n)
-            return temp.length();
-
-        String key = temp + idx;
-        if (memo.containsKey(key))
-            return memo.get(key);
-
-        int include = 0;
-        int exclude = 0;
-        if (!hasCommon(arr.get(idx), temp)) {
-            temp += arr.get(idx);
-            include = solve(idx + 1, arr, temp, n, memo);
-            temp = temp.substring(0, temp.length() - arr.get(idx).length());
+            res[i] = idx + 1;
         }
-        exclude = solve(idx + 1, arr, temp, n, memo);
 
-        int result = max(include, exclude);
-        memo.put(key, result);
-        return result;
+        return res;
+    }
+
+    // first index jahan value > target ho
+    private int upperBound(List<Integer> list, int target) {
+        int l = 0, r = list.size();
+
+        while (l < r) {
+            int mid = (l + r) / 2;
+
+            if (list.get(mid) <= target) {
+                l = mid + 1;
+            } else {
+                r = mid;
+            }
+        }
+
+        return l;
     }
 }
