@@ -37,7 +37,7 @@ public class Solution {
         }
         exclude = solve(idx + 1, arr, temp, n, memo);
 
-        int result = Math.max(include, exclude);
+        int result = max(include, exclude);
         memo.put(key, result);
         return result;
     }
