@@ -1,39 +1,23 @@
 class Solution {
-    public int[] longestObstacleCourseAtEachPosition(int[] o) {
-        int n = o.length;
-        int[] res = new int[n];
-
-        List<Integer> lis = new ArrayList<>();
-
-        for (int i = 0; i < n; i++) {
-            int idx = upperBound(lis, o[i]);
-
-            if (idx == lis.size()) {
-                lis.add(o[i]);
-            } else {
-                lis.set(idx, o[i]);
-            }
-
-            res[i] = idx + 1;
-        }
-
-        return res;
+    public int integerBreak(int n) {
+        Integer[] dp = new Integer[n + 1];
+        return solve(n, dp);
     }
 
-    // first index jahan value > target ho
-    private int upperBound(List<Integer> list, int target) {
-        int l = 0, r = list.size();
+    private int solve(int n, Integer[] dp) {
+        if (n == 1) return 1;
 
-        while (l < r) {
-            int mid = (l + r) / 2;
+        if (dp[n] != null) return dp[n];
 
-            if (list.get(mid) <= target) {
-                l = mid + 1;
-            } else {
-                r = mid;
-            }
+        int maxProd = 0;
+
+        for (int i = 1; i < n; i++) {
+            int takeBreak = i * solve(n - i, dp);   // further break
+            int noBreak = i * (n - i);              // no further break
+
+            maxProd = Math.max(maxProd, Math.max(takeBreak, noBreak));
         }
 
-        return l;
+        return dp[n] = maxProd;
     }
 }
