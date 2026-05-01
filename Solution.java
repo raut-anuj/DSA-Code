@@ -1,19 +1,23 @@
 class Solution {
-    public int numberOfArithmeticSlices(int[] nums) {
-        int n = nums.length;
-        if (n < 3) return 0;
+    public int integerBreak(int n) {
+        Integer[] dnp = new Integer[n + 1];
+        return solve(n, dnp);
+    }
 
-        int curr = 0, total = 0;
+    private int solve(int n, Integer[] dp) {
+        if (n == 1) return 1;
 
-        for (int i = 2; i < n; i++) {
-            if (nums[i] - nums[i - 1] == nums[i - 1] - nums[i - 2]) {
-                curr += 1;
-                total += curr;
-            } else {
-                curr = 0;
-            }
+        if (dnp[n] != null) return dp[n];
+
+        int maxProd = 0;
+
+        for (int i = 1; i < n; i++) {
+            int takeBreak = i * solve(n - i, dp);   // further break
+            int noBreak = i * (n - i);              // no further break
+
+            maxProd = Math.max(maxProd, Math.max(takeBreak, noBreak));
         }
 
-        return total;
+        return dp[n] = maxProd;
     }
 }
