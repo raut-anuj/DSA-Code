@@ -1,13 +1,13 @@
 class Solution {
     public int integerBreak(int n) {
-        Integer[] dp = new Integer[n + 1];
-        return solve(n, dp);
+        Integer[] dnp = new Integer[n + 1];
+        return solve(n, dnp);
     }
 
     private int solve(int n, Integer[] dp) {
         if (n == 1) return 1;
 
-        if (dp[n] != null) return dp[n];
+        if (dnp[n] != null) return dp[n];
 
         int maxProd = 0;
 
