@@ -14,6 +14,6 @@ class Solution {
             }
         }
 
-        return total;
+        return TOTAL;
     }
 }
