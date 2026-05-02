@@ -1,19 +1,24 @@
 class Solution {
-    public int numberOfArithmeticSlices(int[] nums) {
-        int n = nums.length;
-        if (n < 3) return 0;
+    int[] arr;
+    HashSet<List<Integer>> hashSet = new HashSet<>();
+    public List<List<Integer>> findSubsequences(int[] nums) {
+        arr = nums;
+        List<Integer> arrayList = new ArrayList<>();
+        recursion(arrayList,0);
+        List<List<Integer>> result = new ArrayList<>(hashSet);
+        return result;
+    }
 
-        int curr = 0, total = 0;
+    public void recursion(List<Integer> arrayList, int index){
+        if(arrayList.size()>=2) hashSet.add(new ArrayList(arrayList));
 
-        for (int i = 2; i < n; i++) {
-            if (nums[i] - nums[i - 1] == nums[i - 1] - nums[i - 2]) {
-                curr += 1;
-                total += curr;
-            } else {
-                curr = 0;
+        for(int i = index;i<arr.length;i++){
+            if(arrayList.size() == 0 || arr[i]>= arrayList.get(arrayList.size()-1)){
+                arrayList.add(arr[i]);
+                recursion(arrayList,i+1);
+                arrayList.remove(arrayList.size()-1);
             }
         }
 
-        return total;
     }
 }
