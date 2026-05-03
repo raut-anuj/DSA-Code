@@ -1,23 +1,37 @@
 class Solution {
-    public int[] countOppositeParity(int[] n) {
+    public int sumOfPrimesInRange(int n) {
 
-        int len = n.length;
-        int[] ans = new int[len];
+        int k = n;
+        int rev = 0;
 
-        if(len == 1) return new int[]{0};
+        // reverse number
+        while(n != 0){
+            int j = n % 10;
+            rev = rev * 10 + j;
+            n = n / 10;
+        }
 
-        int ce = 0, co = 0;
+        int mine = Math.min(k, rev);
+        int maxe = Math.max(k, rev);
 
-        for(int i = len - 1; i >= 0; i--) {
-            if(n[i] % 2 == 0) {
-                ans[i] = co;  // even → count odd
-                ce++;
-            } else {
-                ans[i] = ce;  // odd → count even
-                co++;
+        int sum = 0;
+
+        for(int i = mine; i <= maxe; i++){
+            if(isPrime(i)){
+                sum += i;
             }
         }
 
-        return ans;
+        return sum;
+    }
+
+    private boolean isPrime(int x){
+        if(x <= 1) return false;
+
+        for(int i = 2; i * i <= x; i++){
+            if(x % i == 0) return false;
+        }
+
+        return true;
     }
 }
