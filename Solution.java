@@ -1,19 +1,23 @@
 class Solution {
-    public int numberOfArithmeticSlices(int[] nums) {
-        int n = nums.length;
-        if (n < 3) return 0;
+    public int[] countOppositeParity(int[] n) {
 
-        int curr = 0, total = 0;
+        int len = n.length;
+        int[] ans = new int[len];
 
-        for (int i = 2; i < n; i++) {
-            if (nums[i] - nums[i - 1] == nums[i - 1] - nums[i - 2]) {
-                curr += 1;
-                total += curr;
+        if(len == 1) return new int[]{0};
+
+        int ce = 0, co = 0;
+
+        for(int i = len - 1; i >= 0; i--) {
+            if(n[i] % 2 == 0) {
+                ans[i] = co;  // even → count odd
+                ce++;
             } else {
-                curr = 0;
+                ans[i] = ce;  // odd → count even
+                co++;
             }
         }
 
-        return TOTAL;
+        return ans;
     }
 }
