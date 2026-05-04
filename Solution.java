@@ -15,7 +15,7 @@ class Solution {
 
         for (int i = start; i < arr.length; i++) {
 
-            // skip duplicates
+          
             if (i > start && arr[i] == arr[i - 1]) continue;
 
             if (arr[i] > target) break;
