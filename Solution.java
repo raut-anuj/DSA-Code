@@ -1,15 +1,24 @@
 class Solution {
-    public int maxFixedPoints(int[] nums) {
-        
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        backtrack(0, candidates, target, new ArrayList<>(), res);
+        return res;
     }
-    solve(int i, int j) //starting dono 0 sh ho rha he.
-    {
-        
-        if(nums[i] == j)
-            return 1+solve(i+1, j+1);
 
-        delete = solve(i+1, j);
-        n_delete = solve(i+1, j+1);
-        return Math.max(delete, n_delete);
+    private void backtrack(int i, int[] arr, int target, List<Integer> curr, List<List<Integer>> res) {
+        if (target == 0) {
+            res.add(new ArrayList<>(curr));
+            return;
+        }
+
+        if (i >= arr.length || target < 0) return;
+
+        // take (same index allowed)
+        curr.add(arr[i]);
+        backtrack(i, arr, target - arr[i], curr, res);
+        curr.remove(curr.size() - 1);
+
+        // skip
+        backtrack(i + 1, arr, target, curr, res);
     }
 }
