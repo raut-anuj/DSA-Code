@@ -2,46 +2,30 @@ import java.util.*;
 
 class Solution {
 
-    public boolean canPartitionKSubsets(int[] nums, int k) {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
 
-        int sum = 0;
-        for (int num : nums) sum += num;
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(nums); // important
 
-        // total sum divisible hona chahiye
-        if (sum % k != 0) return false;
+        solve(0, nums, new ArrayList<>(), res);
 
-        int target = sum / k;
-
-        boolean[] used = new boolean[nums.length];
-
-        return solve(nums, k, 0, 0, target, used);
+        return res;
     }
 
-    private boolean solve(int[] nums, int k, int start, int currSum, int target, boolean[] used) {
+    private void solve(int start, int[] nums, List<Integer> curr, List<List<Integer>> res) {
 
-        // sab buckets ban gaye
-        if (k == 0) return true;
-
-        // ek bucket complete ho gaya
-        if (currSum == target) {
-            return solve(nums, k - 1, 0, 0, target, used);
-        }
+        res.add(new ArrayList<>(curr));
 
         for (int i = start; i < nums.length; i++) {
 
-            if (used[i]) continue;
+            // skip duplicates
+            if (i > start && nums[i] == nums[i - 1]) continue;
 
-            if (currSum + nums[i] > target) continue;
+            curr.add(nums[i]);
 
-            used[i] = true;
+            solve(i + 1, nums, curr, res);
 
-            if (solve(nums, k, i + 1, currSum + nums[i], target, used)) {
-                return true;
-            }
-
-            used[i] = false; // backtrack
+            curr.remove(curr.size() - 1); // backtrack
         }
-
-        return false;
     }
 }
