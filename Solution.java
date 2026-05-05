@@ -1,22 +1,21 @@
 class Solution {
-public:
-    bool canPartitionKSubsets(vector<int>& n, int k) {
-        //isme hm ek T, OT, 
+    public boolean makesquare(int[] stick) {
+        
     }
-    solve(idx, k, OT, T, map){
-        if(k==0)
-            retrun true;
-        if(t==0) return solve(0, k-1, ot, ot, map);
+    solve(idx, sides, stick){
+        if(idx == n){
+            if(sides 0 == 1 ==2== 3) retrun true;
+            return false;
+        }
+        for(int i=0;i<n;i++){
+            if(i>0 && sides[i] == sides[i-1]) continue;
 
-        for(int i=idx; i<n; i++){
-            int nums = n[i];
-            if(map.get(nums) == 0) continue;
+            if(sides[i]+ stick[idx]> target) continue;
 
-            if(nums > target) continue;
-
-            map.value(nums) --;
-            solve(idx+1, k, ot, t-n[i], map);
-            map.value9(nums) ++;
+            sides[i+= stick(idx)];
+            if(solve())
+                retrun true;
+            sidesi[-]=stick9idx0;
         }
     }
-};
+}
