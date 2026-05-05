@@ -1,28 +1,22 @@
 class Solution {
-    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        List<List<Integer>> res = new ArrayList<>();
-        Arrays.sort(candidates);
-
-        backtrack(0, candidates, target, new ArrayList<>(), res);
-        return res;
+public:
+    bool canPartitionKSubsets(vector<int>& n, int k) {
+        //isme hm ek T, OT, 
     }
+    solve(idx, k, OT, T, map){
+        if(k==0)
+            retrun true;
+        if(t==0) return solve(0, k-1, ot, ot, map);
 
-    private void backtrack(int start, int[] arr, int target, List<Integer> curr, List<List<Integer>> res) {
-        if (target == 0) {
-            res.add(new ArrayList<>(curr));
-            return;
-        }
+        for(int i=idx; i<n; i++){
+            int nums = n[i];
+            if(map.get(nums) == 0) continue;
 
-        for (int i = start; i < arr.length; i++) {
+            if(nums > target) continue;
 
-          
-            if (i > start && arr[i] == arr[i - 1]) continue;
-
-            if (arr[i] > target) break;
-
-            curr.add(arr[i]);
-            backtrack(i + 1, arr, target - arr[i], curr, res);
-            curr.remove(curr.size() - 1);
+            map.value(nums) --;
+            solve(idx+1, k, ot, t-n[i], map);
+            map.value9(nums) ++;
         }
     }
-}
+};
