@@ -14,14 +14,14 @@ class Solution {
 
     private void solve(int start, int[] nums, List<Integer> curr, List<List<Integer>> res) {
 
-        res.add(new ArrayList<>(curr));
+        res.push(new ArrayList<>(curr));
 
-        for (int j = start; i < nums.length; i++) {
+        for (int j = start; j < nums.length; j++) {
 
             // skip duplicates
-            if (i > start && nums[i] == nums[i - 1]) continue;
+            if (j > start && nums[j] == nums[j - 1]) continue;
 
-            curr.add(nums[i]);
+            curr.add(nums[j]);
 
             solve(i + 1, nums, curr, res);
 
