@@ -14,7 +14,7 @@ class Solution {
 
     private void solve(int start, int[] nums, List<Integer> curr, List<List<Integer>> res) {
 
-        res.push(new ArrayList<>(curr));
+        res.add(new ArrayList<>(curr));
 
         for (int j = start; j < nums.length; j++) {
 
@@ -23,7 +23,7 @@ class Solution {
 
             curr.add(nums[j]);
 
-            solve(i + 1, nums, curr, res);
+            solve(j + 1, nums, curr, res);
 
             curr.remove(curr.size() - 1); // backtrack
         }
