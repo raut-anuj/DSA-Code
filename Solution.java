@@ -16,14 +16,14 @@ class Solution {
 
         res.add(new ArrayList<>(curr));
 
-        for (int j = start; j < nums.length; j++) {
+        for (int i = start; i < nums.length; i++) {
 
             // skip duplicates
-            if (j > start && nums[j] == nums[j - 1]) continue;
+            if (i > start && nums[i] == nums[i - 1]) continue;
 
-            curr.add(nums[j]);
+            curr.add(nums[i]);
 
-            solve(j + 1, nums, curr, res);
+            solve(i + 1, nums, curr, res);
 
             curr.remove(curr.size() - 1); // backtrack
         }
