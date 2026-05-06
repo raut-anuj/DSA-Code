@@ -1,40 +1,31 @@
+import java.util.*;
+
 class Solution {
-    public int[] constructDistancedSequence(int n) {
-        int[] res = new int[2 * n - 1];
-        boolean[] used = new boolean[n + 1];
-        solve(res, used, 0, n);
+
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(nums); // important
+
+        solve(0, nums, new ArrayList<>(), res);
+
         return res;
     }
 
-    private boolean solve(int[] res, boolean[] used, int idx, int n) {
-        if (idx == res.length) return true;
+    private void solve(int start, int[] nums, List<Integer> curr, List<List<Integer>> res) {
 
-        if (res[idx] != 0) return solve(res, used, idx + 1, n);
+        res.add(new ArrayList<>(curr));
 
-        for (int num = n; num >= 1; num--) {
-            if (used[num]) continue;
+        for (int j = start; j < nums.length; j++) {
 
-            if (num == 1) {
-                res[idx] = 1;
-                used[1] = true;
+            // skip duplicates
+            if (j > start && nums[j] == nums[j - 1]) continue;
 
-                if (solve(res, used, idx + 1, n)) return true;
+            curr.add(nums[j]);
 
-                res[idx] = 0;
-                used[1] = false;
-            } else {
-                int j = idx + num;
-                if (j < res.length && res[idx] == 0 && res[j] == 0) {
-                    res[idx] = res[j] = num;
-                    used[num] = true;
+            solve(j + 1, nums, curr, res);
 
-                    if (solve(res, used, idx + 1, n)) return true;
-
-                    res[idx] = res[j] = 0;
-                    used[num] = false;
-                }
-            }
+            curr.remove(curr.size() - 1); // backtrack
         }
-        return false;
     }
 }
