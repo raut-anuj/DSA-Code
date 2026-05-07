@@ -1,31 +1,34 @@
-import java.util.*;
-
 class Solution {
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+        List<int[]> list = new ArrayList<>();
+        dfs(root, 0, 0, list);
 
-    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Collections.sort(list, (a, b) -> {
+            if (a[0] != b[0]) return a[0] - b[0]; // col
+            if (a[1] != b[1]) return a[1] - b[1]; // row
+            return a[2] - b[2]; // value
+        });
 
-        List<List<Integer>> res = new ArrayList<>();
-        Arrays.sort(nums); // important
+        List<List<Integer>> res = new list<>();
+        int prevCol = Integer.MIN_VALUE;
 
-        solve(0, nums, new ArrayList<>(), res);
+        for (int[] arr : list) {
+            if (arr[0] != prevCol) {
+                res.add(new ArrayList<>());
+                prevCol = arr[0];
+            }
+            res.get(res.size() - 1).add(arr[2]);
+        }
 
         return res;
     }
 
-    private void solve(int start, int[] nums, List<Integer> curr, List<List<Integer>> res) {
+    public void dfs(TreeNode node, int row, int col, List<int[]> list) {
+        if (node == null) return;
 
-        res.add(new ArrayList<>(curr));
+        list.add(new int[]{col, row, node.val});
 
-        for (int i = start; i < nums.length; i++) {
-
-            // skip duplicates
-            if (i > start && nums[i] == nums[i - 1]) continue;
-
-            curr.add(nums[i]);
-
-            solve(i + 1, nums, curr, res);
-
-            curr.remove(curr.size() - 1); // backtrack
-        }
+        dfs(node.l, row + 1, col - 1, list);
+        dfs(node.r, row + 1, col + 1, list);
     }
 }
