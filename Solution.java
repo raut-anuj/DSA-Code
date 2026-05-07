@@ -9,7 +9,7 @@ class Solution {
             return a[2] - b[2]; // value
         });
 
-        List<List<Integer>> res = new list<>();
+        List<List<Integer>> res = new ArrayList<>();
         int prevCol = Integer.MIN_VALUE;
 
         for (int[] arr : list) {
@@ -28,7 +28,7 @@ class Solution {
 
         list.add(new int[]{col, row, node.val});
 
-        dfs(node.l, row + 1, col - 1, list);
-        dfs(node.r, row + 1, col + 1, list);
+        dfs(node.left, row + 1, col - 1, list);
+        dfs(node.right, row + 1, col + 1, list);
     }
 }
