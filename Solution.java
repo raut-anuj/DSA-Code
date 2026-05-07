@@ -1,7 +1,7 @@
 class Solution {
     public int brokenCalc(int sv, int tv) {
         int c = 0;
-
+         sum =0;
         while (tv > sv) {
 
             if (tv % 2 == 0) {
