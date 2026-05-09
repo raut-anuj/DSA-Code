@@ -1,29 +1,25 @@
 class Solution {
-    public int brokenCalc(int sv, int tv) {
-        int c = 0;
+    public int[] scoreValidator(String[] e) {
 
-        while (tv > sv) {
+        int score = 0;
+        int counter = 0;
 
-            if (tv % 2 == 0) {
-                tv = tv / 2;
-            } else {
-                tv = tv + 1;
+        for (int i = 0; i < e.length; i++) {
+
+            // stop if counter becomes 10
+            if (counter == 10) break;
+
+            if (e[i].equals("W")) {
+                counter++;
             }
-
-            c++;
+            else if (e[i].equals("WD") || e[i].equals("NB")) {
+                score += 1;
+            }
+            else {
+                score += Integer.parseInt(e[i]);
+            }
         }
 
-        return c + (sv - tv);
+        return new int[]{score, counter};
     }
-} sum =0;
-        for(int i=0;i<nums.length;i++){
-            sum+=nums[i];
-        }
-        int n = nums.length;
-        int ans = Integer.MAX_VALUE;
-        
-            n--;
-        }
-        return ans;
-    }
-}   
+}
