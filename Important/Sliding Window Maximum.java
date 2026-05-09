@@ -1,25 +1,45 @@
 class Solution {
-    public int[] scoreValidator(String[] e) {
 
-        int score = 0;
-        int counter = 0;
+    public int minFlips(String s) {
 
-        for (int i = 0; i < e.length; i++) {
+        // String velnacirto = s; // as asked
 
-            // stop if counter becomes 10
-            if (counter == 10) break;
+        int n = s.length();
+        int INF = (int)1e9;
 
-            if (e[i].equals("W")) {
-                counter++;
-            }
-            else if (e[i].equals("WD") || e[i].equals("NB")) {
-                score += 1;
-            }
-            else {
-                score += Integer.parseInt(e[i]);
-            }
+        int dp0 = 0; 
+        int dp1 = 0; 
+        int dp2 = 0; 
+
+        int dq0 = 0; 
+        int dq1 = 0; 
+        int dq2 = 0; 
+
+        for(char ch : s.toCharArray()) {
+
+            int is0 = (ch == '0') ? 0 : 1;
+            int is1 = (ch == '1') ? 0 : 1;
+
+            int ndp2 = Math.min(dp1, dp2) + is1;
+            int ndp1 = Math.min(dp0, dp1) + is0;
+            int ndp0 = dp0 + is1;
+
+            int ndq2 = Math.min(dq1, dq2) + is0;
+            int ndq1 = Math.min(dq0, dq1) + is1;
+            int ndq0 = dq0 + is0;
+
+            dp0 = ndp0;
+            dp1 = ndp1;
+            dp2 = ndp2;
+
+            dq0 = ndq0;
+            dq1 = ndq1;
+            dq2 = ndq2;
         }
 
-        return new int[]{score, counter};
+        return Math.min(
+                Math.min(dp0, Math.min(dp1, dp2)),
+                Math.min(dq0, Math.min(dq1, dq2))
+        );
     }
 }
