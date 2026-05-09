@@ -21,9 +21,7 @@ class Solution {
         }
         int n = nums.length;
         int ans = Integer.MAX_VALUE;
-        for(int i=0;i<nums.length;i++){
-            sum-=nums[i];
-            ans = Math.min(ans,Math.abs(sum-(n-1)*nums[i]));
+        
             n--;
         }
         return ans;
