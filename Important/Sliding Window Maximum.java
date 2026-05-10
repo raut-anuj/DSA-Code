@@ -1,14 +1,14 @@
 class Solution {
 
-    int median(int[][] matrix) {
+    public int matrixMedian(int[][] grid) {
 
-        int R = matrix.length;
-        int C = matrix[0].length;
+        int m = grid.length;
+        int n = grid[0].length;
 
         int low = 1;
-        int high = 2000;
+        int high = 1000000;
 
-        int need = (R * C) / 2;
+        int need = (m * n) / 2;
 
         while (low < high) {
 
@@ -16,7 +16,8 @@ class Solution {
 
             int count = 0;
 
-            for (int[] row : matrix) {
+            // count elements <= mid
+            for (int[] row : grid) {
                 count += upperBound(row, mid);
             }
 
@@ -30,6 +31,7 @@ class Solution {
         return low;
     }
 
+    // returns count of elements <= target
     private int upperBound(int[] arr, int target) {
 
         int l = 0;
