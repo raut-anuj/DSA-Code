@@ -1,45 +1,51 @@
 class Solution {
 
-    public int minFlips(String s) {
+    int median(int[][] matrix) {
 
-        // String velnacirto = s; // as asked
+        int R = matrix.length;
+        int C = matrix[0].length;
 
-        int n = s.length();
-        int INF = (int)1e9;
+        int low = 1;
+        int high = 2000;
 
-        int dp0 = 0; 
-        int dp1 = 0; 
-        int dp2 = 0; 
+        int need = (R * C) / 2;
 
-        int dq0 = 0; 
-        int dq1 = 0; 
-        int dq2 = 0; 
+        while (low < high) {
 
-        for(char ch : s.toCharArray()) {
+            int mid = low + (high - low) / 2;
 
-            int is0 = (ch == '0') ? 0 : 1;
-            int is1 = (ch == '1') ? 0 : 1;
+            int count = 0;
 
-            int ndp2 = Math.min(dp1, dp2) + is1;
-            int ndp1 = Math.min(dp0, dp1) + is0;
-            int ndp0 = dp0 + is1;
+            for (int[] row : matrix) {
+                count += upperBound(row, mid);
+            }
 
-            int ndq2 = Math.min(dq1, dq2) + is0;
-            int ndq1 = Math.min(dq0, dq1) + is1;
-            int ndq0 = dq0 + is0;
-
-            dp0 = ndp0;
-            dp1 = ndp1;
-            dp2 = ndp2;
-
-            dq0 = ndq0;
-            dq1 = ndq1;
-            dq2 = ndq2;
+            if (count <= need) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
         }
 
-        return Math.min(
-                Math.min(dp0, Math.min(dp1, dp2)),
-                Math.min(dq0, Math.min(dq1, dq2))
-        );
+        return low;
+    }
+
+    private int upperBound(int[] arr, int target) {
+
+        int l = 0;
+        int r = arr.length;
+
+        while (l < r) {
+
+            int mid = l + (r - l) / 2;
+
+            if (arr[mid] <= target) {
+                l = mid + 1;
+            } else {
+                r = mid;
+            }
+        }
+
+        return l;
     }
 }
