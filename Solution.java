@@ -1,34 +1,38 @@
 class Solution {
 
-    public List<List<Integer>> getFactors(int n) {
+    public int findMaximizedCapital(int k,
+                                    int w,
+                                    int[] profits,
+                                    int[] capital) {
 
-        List<List<Integer>> res = new ArrayList<>();
+        int n = profits.length;
 
-        solve(2, n, new ArrayList<>(), res);
+        int[][] projects = new int[n][2];
 
-        return res;
-    }
-
-    private void solve(int start, int n, List<Integer> curr,
-                       List<List<Integer>> res) {
-
-        if (n == 1) {
-            if (curr.size() > 1) {
-                res.add(new ArrayList<>(curr));
-            }
-            return;
+        for (int i = 0; i < n; i++) {
+            projects[i][0] = capital[i];
+            projects[i][1] = profits[i];
         }
 
-        for (int i = start; i <= n; i++) {
+        Arrays.sort(projects, (a, b) -> a[0] - b[0]);
 
-            if (n % i == 0) {
+        PriorityQueue<Integer> pq =
+            new PriorityQueue<>(Collections.reverseOrder());
 
-                curr.add(i);
+        int idx = 0;
 
-                solve(i, n / i, curr, res);
+        while (k-- > 0) {
 
-                curr.remove(curr.size() - 1);
+            while (idx < n && projects[idx][0] <= w) {
+                pq.offer(projects[idx][1]);
+                idx++;
             }
+
+            if (pq.isEmpty()) break;
+
+            w += pq.poll();
         }
+
+        return w;
     }
 }
