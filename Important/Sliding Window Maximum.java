@@ -1,53 +1,23 @@
 class Solution {
 
-    public int matrixMedian(int[][] grid) {
+    public int leastInterval(char[] tasks, int n) {
 
-        int m = grid.length;
-        int n = grid[0].length;
+        int[] freq = new int[26];
 
-        int low = 1;
-        int high = 1000000;
-
-        int need = (m * n) / 2;
-
-        while (low < high) {
-
-            int mid = low + (high - low) / 2;
-
-            int count = 0;
-
-            // count elements <= mid
-            for (int[] row : grid) {
-                count += upperBound(row, mid);
-            }
-
-            if (count <= need) {
-                low = mid + 1;
-            } else {
-                high = mid;
-            }
+        for (char ch : tasks) {
+            freq[ch - 'A']++;
         }
 
-        return low;
-    }
+        Arrays.sort(freq);
 
-    // returns count of elements <= target
-    private int upperBound(int[] arr, int target) {
+        int maxFreq = freq[25] - 1;
 
-        int l = 0;
-        int r = arr.length;
+        int idle = maxFreq * n;
 
-        while (l < r) {
-
-            int mid = l + (r - l) / 2;
-
-            if (arr[mid] <= target) {
-                l = mid + 1;
-            } else {
-                r = mid;
-            }
+        for (int i = 24; i >= 0; i--) {
+            idle -= Math.min(freq[i], maxFreq);
         }
 
-        return l;
+        return idle > 0 ? idle + tasks.length : tasks.length;
     }
 }
