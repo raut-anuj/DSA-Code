@@ -1,77 +1,25 @@
-class LRUCache {
+class Solution {
+    int max = 0;
 
-    class Node {
-        int key, val;
-        Node prev, next;
-
-        Node(int k, int v) {
-            key = k;
-            val = v;
-        }
+    public int maxUniqueSplit(String s) {
+        solve(0, s, new HashSet<>());
+        return max;
     }
 
-    Map<Integer, Node> map;
-
-    Node head, tail;
-
-    int cap;
-
-    public LRUCache(int capacity) {
-
-        cap = capacity;
-
-        map = new HashMap<>();
-
-        head = new Node(0, 0);
-        tail = new Node(0, 0);
-
-        head.next = tail;
-        tail.prev = head;
-    }
-
-    public int get(int key) {
-
-        if (!map.containsKey(key)) return -1;
-
-        Node node = map.get(key);
-
-        remove(node);
-        insert(node);
-
-        return node.val;
-    }
-
-    public void put(int key, int value) {
-
-        if (map.containsKey(key)) {
-            remove(map.get(key));
+    private void solve(int idx, String s, HashSet<String> set) {
+        if (idx == s.length()) {
+            max = Math.max(max, set.size());
+            return;
         }
 
-        if (map.size() == cap) {
-            remove(tail.prev);
+        for (int i = idx; i < s.length(); i++) {
+            String sub = s.substring(idx, i + 1);
+
+            if (!set.contains(sub)) {
+                set.add(sub);
+                solve(i + 1, s, set);
+                set.remove(sub);
+            }
         }
-
-        insert(new Node(key, value));
-    }
-
-    private void remove(Node node) {
-
-        map.remove(node.key);
-
-        node.prev.next = node.next;
-        node.next.prev = node.prev;
-    }
-
-    private void insert(Node node) {
-
-        map.put(node.key, node);
-
-        Node next = head.next;
-
-        head.next = node;
-        node.prev = head;
-
-        node.next = next;
-        next.prev = node;
     }
 }
