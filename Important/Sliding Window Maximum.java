@@ -1,23 +1,31 @@
+import java.util.*;
+
 class Solution {
 
-    public int leastInterval(char[] tasks, int n) {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
 
-        int[] freq = new int[26];
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(nums); // important
 
-        for (char ch : tasks) {
-            freq[ch - 'A']++;
+        solve(0, nums, new ArrayList<>(), res);
+
+        return res;
+    }
+
+    private void solve(int start, int[] nums, List<Integer> curr, List<List<Integer>> res) {
+
+        res.add(new ArrayList<>(curr));
+
+        for (int i = start; i < nums.length; i++) {
+
+            // skip duplicates
+            if (i > start && nums[i] == nums[i - 1]) continue;
+
+            curr.add(nums[i]);
+
+            solve(i + 1, nums, curr, res);
+
+            curr.remove(curr.size() - 1); // backtrack
         }
-
-        Arrays.sort(freq);
-
-        int maxFreq = freq[25] - 1;
-
-        int idle = maxFreq * n;
-
-        for (int i = 24; i >= 0; i--) {
-            idle -= Math.min(freq[i], maxFreq);
-        }
-
-        return idle > 0 ? idle + tasks.length : tasks.length;
     }
 }
