@@ -1,7 +1,7 @@
 select (
-	select DISTINCT salary
-	from employee
-	order by salary desc
+	select DISTINCT amount
+	from duty
+	order by amount desc
 	limit 1 offset 5
 ) as SecondHighestSalary;
 
