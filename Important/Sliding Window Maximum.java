@@ -1,31 +1,34 @@
-import java.util.*;
+import java.util.Arrays;
 
 class Solution {
+    public int maximumBags(int[] c, int[] r, int ar) {
 
-    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        int n = c.length;
+        int[] narr = new int[n];
 
-        List<List<Integer>> res = new ArrayList<>();
-        Arrays.sort(nums); // important
-
-        solve(0, nums, new ArrayList<>(), res);
-
-        return res;
-    }
-
-    private void solve(int start, int[] nums, List<Integer> curr, List<List<Integer>> res) {
-
-        res.add(new ArrayList<>(curr));
-
-        for (int i = start; i < nums.length; i++) {
-
-            // skip duplicates
-            if (i > start && nums[i] == nums[i - 1]) continue;
-
-            curr.add(nums[i]);
-
-            solve(i + 1, nums, curr, res);
-
-            curr.remove(curr.size() - 1); // backtrack
+        // remaining space
+        for (int i = 0; i < n; i++) {
+            narr[i] = c[i] - r[i];
         }
+
+        Arrays.sort(narr);
+
+        int count = 0;
+
+        for (int i = 0; i < n; i++) {
+
+            if (narr[i] == 0) {
+                count++;
+            } 
+            else if (narr[i] <= ar) {
+                ar -= narr[i];
+                count++;
+            } 
+            else {
+                break;
+            }
+        }
+
+        return count;
     }
 }
