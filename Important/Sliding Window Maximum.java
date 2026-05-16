@@ -1,31 +1,34 @@
-import java.util.Arrays;
+import java.util.*;
 
 class Solution {
-    public int maximumBags(int[] c, int[] r, int ar) {
+    public boolean checkValidCuts(int n, int[][] rectangles) {
 
-        int n = c.length;
-        int[] narr = new int[n];
+        List<int[]> x = new ArrayList<>();
+        List<int[]> y = new ArrayList<>();
 
-        // remaining space
-        for (int i = 0; i < n; i++) {
-            narr[i] = c[i] - r[i];
+        for (int[] r : rectangles) {
+            x.add(new int[]{r[0], r[2]});
+            y.add(new int[]{r[1], r[3]});
         }
 
-        Arrays.sort(narr);
+        return count(x) >= 3 || count(y) >= 3;
+    }
+
+    private int count(List<int[]> list) {
+
+        Collections.sort(list, (a, b) -> Integer.compare(a[0], b[0]));
 
         int count = 0;
+        int end = -1;
 
-        for (int i = 0; i < n; i++) {
+        for (int[] curr : list) {
 
-            if (narr[i] == 0) {
+            if (curr[0] > end) {
                 count++;
-            } 
-            else if (narr[i] <= ar) {
-                ar -= narr[i];
-                count++;
+                end = curr[1];
             } 
             else {
-                break;
+                end = Math.max(end, curr[1]);
             }
         }
 
