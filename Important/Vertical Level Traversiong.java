@@ -1,37 +1,34 @@
-import java.util.*;
+public class Solution {
+    private int result;
+    private int K;
 
-class Solution {
-    public boolean checkValidCuts(int n, int[][] rectangles) {
-
-        List<int[]> x = new ArrayList<>();
-        List<int[]> y = new ArrayList<>();
-
-        for (int[] r : rectangles) {
-            x.add(new int[]{r[0], r[2]});
-            y.add(new int[]{r[1], r[3]});
+    private void dfs(int[] nums, int idx, Map<Integer, Integer> mp) {
+        if (idx == nums.length) {
+            result++;
+            return;
         }
 
-        return count(x) >= 3 || count(y) >= 3;
-    }
+        // not_take
+        dfs(nums, idx + 1, mp);
 
-    private int count(List<int[]> list) {
+        // checking if we can take it or not
+        if (!mp.containsKey(nums[idx] - K) && !mp.containsKey(nums[idx] + K)) {
+            mp.put(nums[idx], mp.getOrDefault(nums[idx], 0) + 1);
+            dfs(nums, idx + 1, mp);
+            mp.put(nums[idx], mp.get(nums[idx]) - 1);
 
-        Collections.sort(list, (a, b) -> Integer.compare(a[0], b[0]));
-
-        int count = 0;
-        int end = -1;
-
-        for (int[] curr : list) {
-
-            if (curr[0] > end) {
-                count++;
-                end = curr[1];
-            } 
-            else {
-                end = Math.max(end, curr[1]);
+            // Remove the key if its count drops to 0 to mimic the C++ erase behavior
+            if (mp.get(nums[idx]) == 0) {
+                mp.remove(nums[idx]);
             }
         }
+    }
 
-        return count;
+    public int beautifulSubsets(int[] nums, int k) {
+        result = 0;
+        K = k;
+        Map<Integer, Integer> mp = new HashMap<>();
+        dfs(nums, 0, mp);
+        return result - 1; // -1 because we don't want to count the empty subset in the result
     }
 }
